@@ -1,0 +1,10 @@
+
+<h1>Edit Category</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @category %> |
+<%= link_to 'Back', categories_path %>
+
+
+<%= button_to 'Delete', @category, method: :delete, data: { action: "click->confirm#confirm" }, class: 'mr-4 text-blue-500' %>

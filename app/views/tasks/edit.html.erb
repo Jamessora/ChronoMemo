@@ -1,0 +1,9 @@
+
+<h1>Edit Task</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @task %> |
+<%= link_to 'Back', tasks_path %>
+
+<%= button_to 'Delete', @task, method: :delete, data: { action: "click->confirm#confirm" }, class: 'mr-4 text-blue-500' %>
