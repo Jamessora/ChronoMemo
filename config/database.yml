@@ -81,6 +81,9 @@ test:
 #
 production:
   <<: *default
-  database: chronomemo_production
-  username: chronomemo
+  host: dpg-cis08u18g3n42okk56og-a
+  port: 5432
+  database: chronomemo_db
+  username: chronomemo_user
   password: <%= ENV["CHRONOMEMO_DATABASE_PASSWORD"] %>
+
