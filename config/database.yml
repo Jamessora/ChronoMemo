@@ -81,9 +81,7 @@ test:
 #
 production:
   <<: *default
-  host: dpg-cis08u18g3n42okk56og-a
-  port: 5432
-  database: chronomemo_db
-  username: chronomemo_user
-  password: <%= ENV["CHRONOMEMO_DATABASE_PASSWORD"] %>
+  adapter: postgresql
+  encoding: unicode
+  url: postgresql://chronomemo_user:yxVQVUJfE85tYcc2TxvPFbfpINOdnBWt@dpg-cis08u18g3n42okk56og-a.singapore-postgres.render.com/chronomemo_db
 
