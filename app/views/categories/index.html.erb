@@ -1,12 +1,50 @@
+<% content_for(:page_title, "Your Categories") %>
+<div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+  <h2>Categories</h2>
+  <div>
+    <!-- list break -->
+    
+    <% @categories.sort_by(&:updated_at).each do |category| %>
+      
+      <div class="p-4 bg-white border rounded-xl text-gray-800 space-y-2">
+      
+        <div class="flex justify-between">
+          <%= link_to category, class: "font-bold hover:text-yellow-800 hover:underline" do %>
+            <%= category.name %>
+          <% end %>
+          <div class="text-gray-400 text-xs"> <%= link_to tasks_path(category_id: category.id) do %>
+          <p class="text-sm leading-6 text-gray-900">
+           <%= category.tasks.where(user_id: current_user.id).count %> tasks
+          </p>
+          <% end %>
+          </div>
+        
+          
+          </div>
+        <div class="flex justify-between">
+        <div class="text-sm text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="text-gray-800 inline align-middle mr-1" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
+          </svg><%= truncate(category.details, length: 100) %>
+        </div>
+        <div><strong>Last Updated:</strong> <%= category.updated_at.strftime('%Y-%m-%d %H:%M') %></div>
+     
+        </div>
+      </div>
+      
+    <%end%>
+    <!-- list break -->
+  </div>
 
-<h1>My Categories</h1>
-
-<% @categories.each do |category| %>
-  <p><strong>Name:</strong> <%= category.name %></p>
-  <p><strong>Details:</strong> <%= category.details %></p>
-  <td><%= link_to 'Show', category %></td>
-  <hr>
-<% end %>
 
 
-<%= link_to 'New Category', new_category_path %>
+
+
+<button class="inline-flex items-center mx-auto max-w-7x mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+  </svg>
+
+  <%= link_to 'New Category', new_category_path %>
+</button>
+</div>

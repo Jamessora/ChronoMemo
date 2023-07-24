@@ -4,7 +4,15 @@ class TasksController < ApplicationController
   
     # GET /tasks
     def index
-        @tasks = current_user.tasks
+      if params[:category_id]
+        @category = Category.find(params[:category_id])
+        @tasks = @category.tasks.where(user_id: current_user.id)
+      else
+        @tasks = Task.where(user_id: current_user.id)
+      end
+
+      today = Time.zone.today
+      
     end
   
     # GET /tasks/1
@@ -61,12 +69,13 @@ class TasksController < ApplicationController
     def set_task
       @task = Task.find(params[:id])
     end
-  
-    # Only allow a list of trusted parameters through.
+    
+     # Only allow a list of trusted parameters through.
     def task_params
       params.require(:task).permit(:title, :details, :date_due, :category_id)
     end
   
+
   
 
 

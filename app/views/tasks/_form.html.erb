@@ -1,26 +1,28 @@
 <!-- app/views/tasks/_form.html.erb -->
 <%= form_with(model: @task, local: true) do |form| %>
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="field mb-6">
+    <%= form.label :title, class: label_class %>
+    <%= form.text_field :title, class: input_class  %>
   </div>
 
-  <div class="field">
-    <%= form.label :details %>
-    <%= form.text_area :details %>
+  <div class="field mb-6">
+    <%= form.label :details, class: label_class %>
+    <%= form.text_area :details, class: input_class  %>
   </div>
 
-  <div class="field">
-    <%= form.label :date_due %>
-    <%= form.datetime_field :date_due %>
+  <div class="field mb-6">
+    <%= form.label :date_due, class: label_class %>
+    <%= form.datetime_field :date_due, class: input_class  %>
   </div>
 
-  <div class="field">
+  <div class="field mb-6">
     <%= form.label :category_id, 'Category' %>
-    <%= form.collection_select :category_id, Category.all, :id, :name %>
+    <%= form.collection_select :category_id, current_user.categories, :id, :name, {}, { class: 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' } %>
+    
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions mb-6">
+    <%= form.submit class: form_button_class%>
   </div>
 <% end %>
+ 
