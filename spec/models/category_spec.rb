@@ -1,18 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  it "is valid with a name and details" do
-    category = Category.new(name: "Test Category", details: "This is a test category.")
-    expect(category).to be_valid
+  let(:user) { users(:test) }
+  let(:category) { categories(:category_1) }
+
+  describe 'associations' do
+    it { should belong_to(:user) }
+    it { should have_many(:tasks).dependent(:destroy) }
   end
 
-  it "is invalid without a name" do
-    category = Category.new(details: "This is a test category.")
-    expect(category).to_not be_valid
+  describe 'validations' do
+    subject { category }
+
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:details) }
   end
 
-  it "is invalid without details" do
-    category = Category.new(name: "Test Category")
-    expect(category).to_not be_valid
+  describe "tasks dependency" do
+    it "should destroy tasks when category is destroyed" do
+      category = Category.create!(user: user, name: "Category 1", details: "Some details")
+      task = Task.create!(user: user, category: category, title: 'Test Task 1', details: 'Details of task 1', date_due: Time.zone.now.midnight)
+
+      expect {
+        category.destroy
+      }.to change(Task, :count).by(-1)
+    end
   end
 end

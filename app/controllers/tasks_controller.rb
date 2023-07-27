@@ -4,6 +4,8 @@ class TasksController < ApplicationController
   
     # GET /tasks
     def index
+
+      
       if params[:category_id]
         @category = Category.find(params[:category_id])
         @tasks = @category.tasks.where(user_id: current_user.id)
@@ -35,7 +37,7 @@ class TasksController < ApplicationController
   
     # POST /tasks
     def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     @task.user = current_user # Assign the task to the current logged-in user
   
         if @task.save

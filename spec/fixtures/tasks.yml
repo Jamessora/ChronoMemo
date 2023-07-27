@@ -1,0 +1,22 @@
+# spec/fixtures/tasks.yml
+
+task_due_today:
+  title: Test Task 1
+  details: Details of task 1
+  date_due: <%= Time.zone.now.midnight %>
+  category: category_1
+  user: test
+
+task_not_due_today:
+  title: Test Task 2
+  details: Details of task 2
+  date_due: <%= 1.day.from_now.midnight %>
+  category: category_1
+  user: test
+
+overdue_task:
+  title: Test Task 3
+  details: Details of task 3
+  date_due: <%= 1.day.ago.midnight %>
+  category: category_1
+  user: test
