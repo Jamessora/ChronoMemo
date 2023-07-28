@@ -57,6 +57,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.0.0'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 4.0'
+  gem 'simplecov'
 end
 
 group :development do

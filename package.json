@@ -19,6 +19,8 @@
   },
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --mode development",
+    "build:css": "postcss ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/stylesheets/application.css"
+    
   }
 }

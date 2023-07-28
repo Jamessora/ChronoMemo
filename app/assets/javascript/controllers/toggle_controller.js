@@ -15,29 +15,33 @@ import { useClickOutside } from "stimulus-use";
  *
  */
 export default class extends Controller {
-  static targets = ["toggleable"];
-
-  connect() {
-    useClickOutside(this);
-  }
-
-  toggle(e) {
-    e.preventDefault();
-
-    this.toggleableTargets.forEach((target) => {
-      target.classList.toggle(target.dataset.cssClass);
-    });
-  }
-
-  clickOutside(event) {
-    if (this.data.get("clickOutside") === "add") {
-      this.toggleableTargets.forEach((target) => {
-        target.classList.add(target.dataset.cssClass);
-      });
-    } else if (this.data.get("clickOutside") === "remove") {
-      this.toggleableTargets.forEach((target) => {
-        target.classList.remove(target.dataset.cssClass);
-      });
-    }
+  static targets = ["menu"];
+  
+  toggle() {
+    this.menuTarget.classList.toggle('hidden')
   }
 }
+//   connect() {
+//     useClickOutside(this);
+//   }
+
+//   toggle(e) {
+//     e.preventDefault();
+
+//     this.toggleableTargets.forEach((target) => {
+//       target.classList.toggle(target.dataset.cssClass);
+//     });
+//   }
+
+//   clickOutside(event) {
+//     if (this.data.get("clickOutside") === "add") {
+//       this.toggleableTargets.forEach((target) => {
+//         target.classList.add(target.dataset.cssClass);
+//       });
+//     } else if (this.data.get("clickOutside") === "remove") {
+//       this.toggleableTargets.forEach((target) => {
+//         target.classList.remove(target.dataset.cssClass);
+//       });
+//     }
+//   }
+// }
