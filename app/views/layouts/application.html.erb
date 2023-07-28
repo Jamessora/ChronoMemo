@@ -43,8 +43,16 @@
             </div>
           </div>
         </div>
+        <div>
+        
+        </div>
         <div class="hidden md:block">
           <div class="ml-4 flex items-center md:ml-6">
+          <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-1 py-1 text-sm font-medium" >
+                  <% if user_signed_in? %>
+                  <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
+                  <% end %>
+                </a>
             <button type="button" class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span class="sr-only">View notifications</span>
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -149,10 +157,7 @@
   <main>
     <div class="mx-auto py-6 sm:px-6 lg:px-8">
       
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
-
+   
     <%= yield %>
     </div>
   </main>

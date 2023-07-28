@@ -2,42 +2,40 @@ require 'rails_helper'
 
 RSpec.describe PagesController, type: :controller do
   let(:user) { users(:test) }
-  let(:category) { categories(:category_1) }
+  let(:category1) { categories(:category_1) }
+  let(:category2) { categories(:category_2) }
   let(:task_due_today) { tasks(:task_due_today) }
   let(:task_not_due_today) { tasks(:task_not_due_today) }
   let(:overdue_task) { tasks(:overdue_task) }
 
-  describe 'GET #home' do
-    context 'when a user is logged in' do
-      before do
-        sign_in user
+  before do
+    sign_in user
+  end
+
+  describe "GET #home" do
+    context "when there is no category_id in params" do
+      before { get :home }
+
+      it "assigns all tasks of the current user to @tasks" do
+        expect(assigns(:tasks)).to match_array([task_due_today, task_not_due_today, overdue_task])
       end
 
-      it 'renders the :home template' do
-        get :home
-        expect(response).to render_template(:home)
-      end
-
-      it 'assigns tasks due today to @tasks_due_today' do
-        get :home
-        expect(assigns(:tasks_due_today)).to include(task_due_today)
-      end
-
-      it 'assigns tasks not due today to @tasks_not_due_today' do
-        get :home
-        expect(assigns(:tasks_not_due_today)).to include(task_not_due_today)
-      end
-
-      it 'assigns overdue tasks to @overdue_tasks' do
-        get :home
-        expect(assigns(:overdue_tasks)).to include(overdue_task)
+      it "assigns all categories of the current user to @categories" do
+        get :home, params: { user_id: user.id }
+        expect(assigns(:categories).to_a).to match_array([category1, category2])
       end
     end
 
-    context 'when a user is not logged in' do
-      it 'redirects to the login page' do
-        get :home
-        expect(response).to redirect_to(new_user_session_path)
+    context "when there is category_id in params" do
+      before { get :home, params: { category_id: category1.id } }
+
+      it "assigns tasks of the current category to @tasks" do
+        expect(assigns(:tasks)).to match_array([task_due_today, task_not_due_today, overdue_task])
+      end
+
+      it "assigns all categories of the current user to @categories" do
+        get :home, params: { user_id: user.id }
+        expect(assigns(:categories).to_a).to match_array([category1, category2])
       end
     end
   end

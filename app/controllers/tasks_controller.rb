@@ -10,13 +10,17 @@ class TasksController < ApplicationController
         @category = Category.find(params[:category_id])
         @tasks = @category.tasks.where(user_id: current_user.id)
       else
-        @tasks = Task.where(user_id: current_user.id)
+    
+        @tasks = Task.where(user_id: current_user.id).order(completed: :asc, date_due: :asc)
+        
       end
 
       today = Time.zone.today
       
     end
-  
+    
+    
+
     # GET /tasks/1
     def show
     end
@@ -39,6 +43,7 @@ class TasksController < ApplicationController
     def create
     @task = current_user.tasks.build(task_params)
     @task.user = current_user # Assign the task to the current logged-in user
+    @task.completed = false
   
         if @task.save
             redirect_to @task, notice: 'Task was successfully created.'
@@ -65,6 +70,16 @@ class TasksController < ApplicationController
       redirect_to tasks_url, notice: 'Task was successfully destroyed.'
     end
   
+     #completed task
+    def toggle_completion
+    @task = Task.find(params[:id])
+    @task.update(completed: !@task.completed)
+
+    redirect_to tasks_url
+    end
+
+
+
     private
   
     # Use callbacks to share common setup or constraints between actions.
@@ -79,7 +94,5 @@ class TasksController < ApplicationController
   
 
   
-
-
-
+ 
 end

@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   resources :categories
-  resources :tasks
+  resources :tasks do
+    member do
+      put :toggle_completion
+    end
+  end
 
   get '/tailwindcss/base', to: redirect('/path/to/your/base.css')
   get '/tailwindcss/components', to: redirect('/path/to/your/components.css')

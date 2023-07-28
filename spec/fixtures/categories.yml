@@ -5,7 +5,9 @@ category_1:
   details: This is category 1 details.
   user: test
 
+
 category_2:
   name: Category 2
   details: This is category 2 details.
   user: test
+

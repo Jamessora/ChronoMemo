@@ -9,23 +9,33 @@
           <div class="font-bold text-xl text-gray-800 leading-none"><%= current_user.first_name %>!</div>
           <div class="mt-5">
             <button type="button" class="inline-flex items-center justify-center py-2 px-3 rounded-xl bg-white text-gray-800 hover:text-green-500 text-sm font-semibold transition">
-              Start tracking
+             <a href="/tasks"> View All Tasks </a>
             </button>
           </div>
         </div>
       </div>
+      <div class="col-span-1">
       <div class="p-4 bg-yellow-100 rounded-xl text-gray-800">
-        <div class="font-bold text-2xl leading-none">20</div>
-        <div class="mt-2">Tasks finished</div>
+        <div class="font-bold text-2xl leading-none">
+        <%= Task.where(user_id: current_user.id, completed:true).count %> tasks
+        </div>
+        <div class="mt-2"> Finished</div>
       </div>
+      </div>
+      <div class="col-span-1">
       <div class="p-4 bg-yellow-100 rounded-xl text-gray-800">
-        <div class="font-bold text-2xl leading-none">5,5</div>
-        <div class="mt-2">Tracked hours</div>
+        <div class="font-bold text-2xl leading-none">
+        <%= Category.where(user_id: current_user.id).count %> Categories
+        </div>
+      </div>  
       </div>
       <div class="col-span-2">
         <div class="p-4 bg-purple-100 rounded-xl text-gray-800">
-          <div class="font-bold text-xl leading-none">Your daily plan</div>
-          <div class="mt-2">5 of 8 completed</div>
+          <div class="font-bold text-xl leading-none">Tasks for today</div>
+          <div class="mt-2">
+          <%= Task.where(user_id: current_user.id, completed: true).where('date_due::date <= ?', Date.today).count %> 
+            of
+          <%= Task.where(user_id: current_user.id).where('date_due::date <= ?', Date.today).count %>  completed</div>
         </div>
       </div>
     </div>
@@ -35,7 +45,7 @@
     <h2>Other Tasks</h2>
     <div style="height: 400px; overflow-y: auto;">
       <!-- list break -->
-      <% @tasks.sort_by(&:date_due).each do |task| %>
+      <% @tasks.each do |task| %>
       
       <div class="p-4 bg-white border rounded-xl text-gray-800 space-y-2">
       
@@ -44,12 +54,15 @@
           <div class="text-gray-400 text-xs"><%= task.category.name %></div>
           <%end%>
           <div class="text-gray-400 text-xs">
-            <% if task.date_due < Time.zone.now.beginning_of_day %>
+            <% if task.completed %>
+            <span class="text-green-600 font-bold">(Completed)</span>
+            <% elsif task.date_due < Time.zone.now.beginning_of_day %>
             <span class="text-red-600 font-bold">(Overdue)</span>
-            <% elsif task.date_due >= Time.zone.now.beginning_of_day && task.date_due <= Time.zone.now.end_of_day %>
+            <% else task.date_due >= Time.zone.now.beginning_of_day && task.date_due <= Time.zone.now.end_of_day %>
             <span class="text-red-600 font-bold">(Due Today)</span>
-            <% else %>
-            <!-- Handle other tasks that are not overdue and not due today -->
+            
+           
+            
             <% end %>
           </div>
          </div>

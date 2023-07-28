@@ -13,14 +13,14 @@ RSpec.describe TasksController, type: :controller do
     context "with category_id parameter" do
       it "assigns tasks of the category to @tasks" do
         get :index, params: { category_id: category.id }
-        expect(assigns(:tasks)).to eq(category.tasks.where(user_id: user.id))
+        expect(assigns(:tasks)).to match_array(category.tasks.where(user_id: user.id))
       end
     end
 
     context "without category_id parameter" do
       it "assigns all tasks of the user to @tasks" do
         get :index
-        expect(assigns(:tasks)).to eq(Task.where(user_id: user.id))
+        expect(assigns(:tasks)).to match_array(Task.where(user_id: user.id).order(completed: :asc, date_due: :asc))
       end
     end
   end

@@ -6,6 +6,7 @@ task_due_today:
   date_due: <%= Time.zone.now.midnight %>
   category: category_1
   user: test
+  completed: false
 
 task_not_due_today:
   title: Test Task 2
@@ -13,6 +14,7 @@ task_not_due_today:
   date_due: <%= 1.day.from_now.midnight %>
   category: category_1
   user: test
+  completed: false
 
 overdue_task:
   title: Test Task 3
@@ -20,3 +22,4 @@ overdue_task:
   date_due: <%= 1.day.ago.midnight %>
   category: category_1
   user: test
+  completed: false
