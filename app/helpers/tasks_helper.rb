@@ -11,4 +11,9 @@ module TasksHelper
     user.tasks.where.not(date_due: today.all_day).order(completed: :asc, date_due: :asc)
   end
 
+  def task_errors(task)
+    task.errors.full_messages.join(', ')
+  end
+
+
 end

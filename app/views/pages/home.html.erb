@@ -31,7 +31,7 @@
       </div>
       <div class="col-span-2">
         <div class="p-4 bg-purple-100 rounded-xl text-gray-800">
-          <div class="font-bold text-xl leading-none">Tasks for today</div>
+          <div class="font-bold text-xl leading-none">Tasks due today</div>
           <div class="mt-2">
           <%= Task.where(user_id: current_user.id, completed: true).where('date_due::date <= ?', Date.today).count %> 
             of
@@ -58,7 +58,7 @@
             <span class="text-green-600 font-bold">(Completed)</span>
             <% elsif task.date_due < Time.zone.now.beginning_of_day %>
             <span class="text-red-600 font-bold">(Overdue)</span>
-            <% else task.date_due >= Time.zone.now.beginning_of_day && task.date_due <= Time.zone.now.end_of_day %>
+            <% elsif !task.completed && task.date_due >= Time.zone.now.beginning_of_day && task.date_due <= Time.zone.now.end_of_day %>
             <span class="text-red-600 font-bold">(Due Today)</span>
             
            

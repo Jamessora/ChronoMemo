@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-
+  include TasksHelper
     before_action :set_task, only: [:show, :edit, :update, :destroy]
   
     # GET /tasks
@@ -49,7 +49,7 @@ class TasksController < ApplicationController
             redirect_to @task, notice: 'Task was successfully created.'
             
          else
-            flash.now[:alert] = 'Task could not be created due to the following errors:'
+          flash.now[:alert] = "Task could not be created due to the following errors: #{task_errors(@task)}"
             render :new
         end
     
