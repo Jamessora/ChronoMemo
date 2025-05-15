@@ -1,0 +1,4 @@
+# config/jsbundling.yml
+build:
+  # Use the `yarn build` script instead of bin/webpack
+  command: "yarn build"
