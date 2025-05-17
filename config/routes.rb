@@ -14,6 +14,15 @@ Rails.application.routes.draw do
   get '/tailwindcss/components', to: redirect('/path/to/your/components.css')
   get '/tailwindcss/utilities', to: redirect('/path/to/your/utilities.css')
 
+ unauthenticated do
+    root to: "pages#landing", as: :unauthenticated_root
+  end
 
-  root "pages#home"
+  # Dashboard for signed-in users:
+  authenticated :user do
+    root to: "pages#home", as: :authenticated_root
+  end
+
+
+  root to:"pages#landing"
 end
