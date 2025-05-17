@@ -17,9 +17,14 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  host:     127.0.0.1    # force IPv4 TCP for dev & test
+  port:     5432
+  username: postgres
+  password: j3rico
+  pool:     <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
 
 development:
   <<: *default
@@ -29,10 +34,6 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  username: jamessora
-
-  # The password associated with the postgres role (username).
-  password: jamessora
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -83,5 +84,4 @@ production:
   <<: *default
   adapter: postgresql
   encoding: unicode
-  url: postgresql://chronomemo_user:yxVQVUJfE85tYcc2TxvPFbfpINOdnBWt@dpg-cis08u18g3n42okk56og-a.singapore-postgres.render.com/chronomemo_db
-
+  url: postgresql://chronomemo_user:UivszaxtkDbvQNOIE1hUukg4ZUfKZatw@dpg-d0hju3adbo4c73ds7fog-a.singapore-postgres.render.com/chronomemo

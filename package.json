@@ -24,11 +24,12 @@
     "webpack": "^5.88.2",
     "webpack-dev-server": "^4.15.1"
   },
-  "scripts": {
+    "scripts": {
     "build": "bin/webpack --mode production",
-    "start": "bin/webpack-dev-server --color --progress",
+    "start": "webpack-dev-server --config config/webpack/development.js --mode development --color --progress",
     "build:css": "postcss ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/stylesheets/application.css"
   },
+
   "engines": {
     "node": ">=18.20.0"
   }
